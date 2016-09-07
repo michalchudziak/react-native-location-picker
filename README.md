@@ -2,9 +2,6 @@
 
 Customizable location picker component for react native.
 
-![Image of RNLocationPicker]
-(https://media.giphy.com/media/3o6ZtrBdthmkO4Es7u/giphy.gif)
-
 ##Requirements
 
 - RN >= 0.29
