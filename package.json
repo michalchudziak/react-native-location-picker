@@ -1,0 +1,41 @@
+{
+  "name": "react-native-location-picker",
+  "version": "0.0.1",
+  "description": "Location picker for React Native",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mike866/react-native-location-picker.git"
+  },
+  "keywords": [
+    "react",
+    "native",
+    "location",
+    "picker",
+    "maps",
+    "ios",
+    "android"
+  ],
+  "author": "Mike Chudziak (@mike866)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mike866/react-native-location-picker/issues"
+  },
+  "homepage": "https://github.com/mike866/react-native-location-picker#readme",
+  "devDependencies": {
+    "babel-eslint": "^6.0.0",
+    "eslint": "^3.3.1",
+    "eslint-config-airbnb": "^10.0.1",
+    "eslint-plugin-import": "^1.8.0",
+    "eslint-plugin-jsx-a11y": "^2.1.0",
+    "eslint-plugin-react": "^6.1.2"
+  },
+  "dependencies": {
+    "react": "^15.3.0",
+    "react-native": "^0.32.0",
+    "react-native-maps": "^0.8.0"
+  }
+}

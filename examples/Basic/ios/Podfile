@@ -1,0 +1,12 @@
+platform :ios, '9.0'
+
+target 'Basic' do
+  pod 'React', :path => '../node_modules/react-native', :subspecs => [
+    'Core',
+    'RCTImage',
+    'RCTNetwork',
+    'RCTText',
+    'RCTWebSocket'
+  ]
+  pod 'react-native-maps', :path => '../node_modules/react-native-maps'
+end
