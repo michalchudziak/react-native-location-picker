@@ -4,11 +4,9 @@ import {
   Modal,
   StyleSheet,
   TouchableOpacity,
-  Dimensions,
+  Text,
 } from 'react-native';
 import MapView from 'react-native-maps';
-
-const { height, width } = Dimensions.get('window');
 
 export default class LocationPicker extends Component {
   static propTypes = {
@@ -26,6 +24,12 @@ export default class LocationPicker extends Component {
       PropTypes.number,
     ]),
   };
+
+  defaultProps = {
+    renderButton: () => (
+      <Text style={styles.locationPickerButton}>DONE</Text>
+    ),
+  }
 
   state = {
     coordinates: {
@@ -114,14 +118,20 @@ export default class LocationPicker extends Component {
 
 const styles = StyleSheet.create({
   map: {
-    width,
-    height,
+    flex: 1,
   },
   buttonContainer: {
     position: 'absolute',
-    width,
+    flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
     bottom: 20,
+  },
+  locationPickerButton: {
+    fontSize: 25,
+    color: 'white',
+    backgroundColor: 'black',
+    paddingVertical: 15,
+    paddingHorizontal: 50,
   },
 });
