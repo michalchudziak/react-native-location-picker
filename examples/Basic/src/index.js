@@ -21,7 +21,6 @@ class Basic extends Component {
     return (
       <View style={styles.container}>
         <LocationPicker
-          buttonText="DONE"
           onFinish={({ latitude, longitude }) => {
             this.setState({ latitude, longitude });
           }}
@@ -39,9 +38,6 @@ class Basic extends Component {
                 }`}
               </Text>
             </View>
-          )}
-          renderButton={() => (
-            <Text style={styles.locationPickerButton}>DONE</Text>
           )}
         />
       </View>
@@ -63,16 +59,9 @@ const styles = StyleSheet.create({
     padding: 3,
     borderRadius: 7,
     height: 30,
-    width: 0.8 * width,
+    flex: 0.8,
     alignSelf: 'center',
     overflow: 'hidden',
-  },
-  locationPickerButton: {
-    fontSize: 25,
-    color: 'white',
-    backgroundColor: 'black',
-    paddingVertical: 15,
-    paddingHorizontal: 50,
   },
 });
 
