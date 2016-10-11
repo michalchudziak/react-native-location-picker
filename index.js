@@ -51,21 +51,7 @@ export default class LocationPicker extends Component {
   }
 
   onRegionChange = ({ latitude, longitude }) => {
-    this.isPressing();
     this.setState({ coordinates: { latitude, longitude } });
-  }
-
-  isPressing = () => {
-    const { timeout } = this.state;
-
-    this.setState({ isPressing: true });
-
-    if (timeout) {
-      clearTimeout(timeout);
-    }
-
-    const newTimeout = setTimeout(() => this.setState({ isPressing: false }), 500);
-    this.setState({ timeout: newTimeout });
   }
 
   onButtonPress = () => {
