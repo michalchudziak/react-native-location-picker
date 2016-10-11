@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
-import MapView from 'react-native-maps';
+import MapView, { Marker } from 'react-native-maps';
 
 const { height, width } = Dimensions.get('window');
 
@@ -17,6 +17,8 @@ export default class LocationPicker extends Component {
     renderButton: PropTypes.func.isRequired,
     renderInput: PropTypes.func.isRequired,
     markerText: PropTypes.string,
+    markerView: PropTypes.node,
+    markerImage: PropTypes.number,
     buttonContainerStyles: PropTypes.oneOfType([
       PropTypes.object,
       PropTypes.number,
@@ -74,7 +76,15 @@ export default class LocationPicker extends Component {
   showModal = () => this.setState({ isModalOpen: true });
 
   render() {
-    const { mapStyles, buttonContainerStyles, markerText, renderButton, renderInput } = this.props;
+    const {
+      buttonContainerStyles,
+      mapStyles,
+      markerImage,
+      markerText,
+      markerView,
+      renderButton,
+      renderInput,
+    } = this.props;
     const { coordinates, deltas, isPressing, isModalOpen } = this.state;
 
     return (
@@ -92,10 +102,13 @@ export default class LocationPicker extends Component {
             onPanDrag={this.onPanDrag}
           >
             {!isPressing && (
-              <MapView.Marker
+              <Marker
                 coordinate={coordinates}
+                image={markerImage}
                 title={markerText}
-              />
+              >
+                {!!markerView && markerView}
+              </Marker>
             )}
           </MapView>
           <View style={buttonContainerStyles || styles.buttonContainer}>
