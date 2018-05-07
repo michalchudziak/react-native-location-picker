@@ -15,31 +15,47 @@ import {
 import MapView, { Marker } from 'react-native-maps';
 
 const { height, width } = Dimensions.get('window');
-
 class LocationPicker extends Component {
-  state = {
-    coordinates: {
-      latitude: 37.78825,
-      longitude: -122.4324,
-    },
-    deltas: {
-      latitudeDelta: 0.0922,
-      longitudeDelta: 0.0421,
-    },
-    timeout: null,
-    isPressing: false,
-    isModalOpen: false,
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const { location } = nextProps;
-    if (location) {
-      this.setState({ coordinates: location });
+  constructor(props) {
+    super(props);
+    this.state = {
+      coordinates: {
+        latitude: props.location.latitude,
+        longitude: props.location.longitude,
+      },
+      deltas: {
+        latitudeDelta: 0.0922,
+        longitudeDelta: 0.0421,
+      },
+      timeout: null,
+      isPressing: false,
+      isModalOpen: false,
     }
   }
 
+  // This is not a good way to update state from properties, prefer getDerivedStateFromProps()
+  // componentWillReceiveProps(nextProps) {
+  //   const { location } = nextProps;
+  //   if (location) {
+  //     let coord = {
+  //       ...location,
+  //       latitudeDelta:this.state.latitudeDelta,
+  //       longitudeDelta:this.state.longitudeDelta,
+  //     }
+  //     this.setState({ coordinates: coord });
+  //   }
+  // }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const { location } = nextProps;
+    if (location) {
+      return {...prevState, coordinates:{...location}}
+    }
+    return null;
+  }
+
   onRegionChange = ({ latitude, longitude }) => {
-    this.setState({ coordinates: { latitude, longitude } });
+    this.setState({ coordinates: {latitude, longitude} });
   }
 
   onButtonPress = () => {
@@ -47,7 +63,9 @@ class LocationPicker extends Component {
     this.setState({ isModalOpen: false });
   }
 
-  showModal = () => this.setState({ isModalOpen: true });
+  showModal = () => {
+    this.setState({ isModalOpen: true })
+  };
 
   render() {
     const {
