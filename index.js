@@ -1,4 +1,10 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+/*
+** Refactoring based on braking changes of 15.5 version of react
+** React.PropTypes has moved into a different package since React v15.5.
+** Please use the prop-types library instead.
+ */
+import PropTypes from 'prop-types';
 import {
   View,
   Modal,
