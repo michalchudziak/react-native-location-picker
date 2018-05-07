@@ -16,25 +16,7 @@ import MapView, { Marker } from 'react-native-maps';
 
 const { height, width } = Dimensions.get('window');
 
-export default class LocationPicker extends Component {
-  static propTypes = {
-    location: PropTypes.object,
-    onFinish: PropTypes.func.isRequired,
-    renderButton: PropTypes.func.isRequired,
-    renderInput: PropTypes.func.isRequired,
-    markerText: PropTypes.string,
-    markerView: PropTypes.node,
-    markerImage: PropTypes.number,
-    buttonContainerStyles: PropTypes.oneOfType([
-      PropTypes.object,
-      PropTypes.number,
-    ]),
-    mapStyles: PropTypes.oneOfType([
-      PropTypes.object,
-      PropTypes.number,
-    ]),
-  };
-
+class LocationPicker extends Component {
   state = {
     coordinates: {
       latitude: 37.78825,
@@ -116,6 +98,26 @@ export default class LocationPicker extends Component {
     );
   }
 }
+
+LocationPicker.propTypes = {
+  location: PropTypes.object,
+  onFinish: PropTypes.func.isRequired,
+  renderButton: PropTypes.func.isRequired,
+  renderInput: PropTypes.func.isRequired,
+  markerText: PropTypes.string,
+  markerView: PropTypes.node,
+  markerImage: PropTypes.number,
+  buttonContainerStyles: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.number,
+  ]),
+  mapStyles: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.number,
+  ]),
+}
+
+export default LocationPicker;
 
 const styles = StyleSheet.create({
   map: {
