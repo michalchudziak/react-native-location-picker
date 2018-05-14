@@ -6,8 +6,10 @@
     "start": "node node_modules/react-native/local-cli/cli.js start"
   },
   "dependencies": {
-    "react": "15.3.1",
-    "react-native": "0.32.0",
-    "react-native-location-picker": "../.."
+    "react-native-location-picker": "../..",
+    "react": "^16.3.1",
+    "react-native": "^0.55.3",
+    "react-native-geocoder": "^0.5.0",
+    "react-native-maps": "^0.21.0"
   }
 }

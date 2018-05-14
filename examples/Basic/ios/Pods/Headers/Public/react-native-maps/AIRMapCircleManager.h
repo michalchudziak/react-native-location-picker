@@ -1,1 +1,1 @@
-../../../../../node_modules/react-native-maps/ios/AirMaps/AIRMapCircleManager.h
+../../../../../node_modules/react-native-maps/lib/ios/AirMaps/AIRMapCircleManager.h

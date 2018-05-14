@@ -14,6 +14,8 @@ import {
 } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 
+import SearchAddress from './components/SearchAddress';
+
 const { height, width } = Dimensions.get('window');
 class LocationPicker extends Component {
   constructor(props) {
@@ -30,6 +32,12 @@ class LocationPicker extends Component {
       timeout: null,
       isPressing: false,
       isModalOpen: false,
+      isSelectedAddress: false,
+      selectedAddress:{},
+      selectedCoordinates: {
+        latitude: props.location.latitude,
+        longitude: props.location.longitude,
+      }
     }
   }
 
@@ -58,26 +66,58 @@ class LocationPicker extends Component {
     this.setState({ coordinates: {latitude, longitude} });
   }
 
-  onButtonPress = () => {
-    this.props.onFinish(this.state.coordinates);
+  onOkButtonPress = () => {
+    this.props.onFinish(this.state.selectedAddress);
+    this.setState({ isModalOpen: false, selectedCoordinates: Object.assign({},this.state.coordinates) });
+  }
+
+  onCancelButtonPress = () => {
+    this.props.onFinish();
     this.setState({ isModalOpen: false });
   }
 
+  onSelectAddress(address) {
+    this.setState({ selectedAddress: address });
+    this.setState({coordinates:address.position});
+  }
+
   showModal = () => {
+    this.setState({ coordinates: Object.assign({},this.state.selectedCoordinates)})
     this.setState({ isModalOpen: true })
   };
+
+  renderSearch(renderSearchInput,renderSearchButton) {
+    if (renderSearchInput && renderSearchButton) {
+      return (
+        <SearchAddress
+          goButtonTitle={this.props.goButtonTitle || 'Go'}
+          searchModalTitle={this.props.searchModalTitle || 'Select address'}
+          searchModalButtonOk={this.props.searchModalOk || 'Go'}
+          searchModalButtonCancel={this.props.searchModalCancel || 'Cancel'}
+          onSelectAddress={this.onSelectAddress.bind(this)}
+          renderSearchInput={renderSearchInput}
+          renderSearchButton={renderSearchButton}
+        />
+      )
+    }
+    return null;
+  }
 
   render() {
     const {
       buttonContainerStyles,
+      searchContainerStyles,
       mapStyles,
       markerImage,
       markerText,
       markerView,
-      renderButton,
+      renderOkButton,
+      renderCancelButton,
+      renderSearchInput,
+      renderSearchButton,
       renderInput,
     } = this.props;
-    const { coordinates, deltas, isPressing, isModalOpen } = this.state;
+    const { selectedCoordinates, coordinates, deltas, isPressing, isModalOpen } = this.state;
 
     return (
       <View style={styles.container}>
@@ -90,6 +130,7 @@ class LocationPicker extends Component {
           <MapView
             style={mapStyles || styles.map}
             initialRegion={{ ...coordinates, ...deltas }}
+            region={{ ...coordinates, ...deltas }}
             onRegionChange={this.onRegionChange}
             onPanDrag={this.onPanDrag}
           >
@@ -103,14 +144,25 @@ class LocationPicker extends Component {
               </Marker>
             )}
           </MapView>
+          {/* <View
+            style={styles.mapInstrumentsContainer}
+          >
+
+          </View> */}
+          <View style={searchContainerStyles || styles.searchContainer}>
+            {this.renderSearch(renderSearchInput,renderSearchButton)}
+          </View>
           <View style={buttonContainerStyles || styles.buttonContainer}>
-            <TouchableOpacity onPress={this.onButtonPress}>
-              {renderButton()}
+            <TouchableOpacity onPress={this.onOkButtonPress}>
+              {renderOkButton()}
+            </TouchableOpacity>
+            <TouchableOpacity onPress={this.onCancelButtonPress}>
+              {renderCancelButton()}
             </TouchableOpacity>
           </View>
         </Modal>
         <TouchableOpacity activeOpacity={1} onPress={this.showModal}>
-          {renderInput(coordinates)}
+          {renderInput(selectedCoordinates)}
         </TouchableOpacity>
       </View>
     );
@@ -118,9 +170,16 @@ class LocationPicker extends Component {
 }
 
 LocationPicker.propTypes = {
+  goButtonTitle: PropTypes.string,
+  searchModalTitle: PropTypes.string,
+  searchModalButtonOk: PropTypes.string,
+  searchModalButtonCancel: PropTypes.string,
   location: PropTypes.object,
   onFinish: PropTypes.func.isRequired,
-  renderButton: PropTypes.func.isRequired,
+  renderOkButton: PropTypes.func.isRequired,
+  renderCancelButton: PropTypes.func.isRequired,
+  renderSearchInput: PropTypes.func,
+  renderSearchButton: PropTypes.func,
   renderInput: PropTypes.func.isRequired,
   markerText: PropTypes.string,
   markerView: PropTypes.node,
@@ -133,6 +192,10 @@ LocationPicker.propTypes = {
     PropTypes.object,
     PropTypes.number,
   ]),
+  searchContainerStyles: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.number,
+  ]),
 }
 
 export default LocationPicker;
@@ -142,11 +205,26 @@ const styles = StyleSheet.create({
     width,
     height,
   },
+  mapInstrumentsContainer: {
+    position: 'absolute',
+    width,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    top: 20,
+  },
   buttonContainer: {
     position: 'absolute',
     width,
     flexDirection: 'row',
     justifyContent: 'center',
     bottom: 20,
+  },
+  searchContainer: {
+    position: 'absolute',
+    width,
+    flex:1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    top: 20,
   },
 });

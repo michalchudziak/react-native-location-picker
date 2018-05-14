@@ -1,0 +1,25 @@
+{
+  "name": "BasicWithReact16",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest"
+  },
+  "dependencies": {
+    "react": "^16.3.1",
+    "react-native": "^0.55.3",
+    "react-native-geocoder": "^0.5.0",
+    "react-native-location-picker": "file:///Users/coichedid/Projetos/EstouTrabalhandoApp/react-native-location-picker",
+    "react-native-maps": "^0.21.0"
+  },
+  "devDependencies": {
+    "babel-jest": "22.4.3",
+    "babel-preset-react-native": "4.0.0",
+    "jest": "22.4.3",
+    "react-test-renderer": "16.3.1"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}
