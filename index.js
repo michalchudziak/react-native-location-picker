@@ -79,6 +79,7 @@ class LocationPicker extends Component {
   onSelectAddress(address) {
     this.setState({ selectedAddress: address });
     this.setState({coordinates:address.position});
+    this._map.animateToCoordinate(address.position,1);
   }
 
   showModal = () => {
@@ -130,9 +131,10 @@ class LocationPicker extends Component {
           <MapView
             style={mapStyles || styles.map}
             initialRegion={{ ...coordinates, ...deltas }}
-            region={{ ...coordinates, ...deltas }}
+            // region={{ ...coordinates, ...deltas }}
             onRegionChange={this.onRegionChange}
             onPanDrag={this.onPanDrag}
+            ref={component => this._map = component}
           >
             {!isPressing && (
               <Marker
