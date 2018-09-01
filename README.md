@@ -74,10 +74,14 @@ import com.airbnb.android.react.maps.MapsPackage;
 
 ##Example
 
-You can find this exaple under `examples/Basic`, and run it via:
-
+You can find this example under `examples/`:
+For react < 15.0
 ```bash
 $ cd examples/Basic && npm i && npm start
+```
+For react >= 15.0
+```bash
+$ cd examples/BasicWithReact16 && npm i && npm start
 ```
 
 ```js
@@ -108,3 +112,25 @@ import LocationPicker from 'react-native-location-picker';
   )}
 />
 ```
+
+API
+
+To show search bar on map modal view, include both renderSearchInput and renderSearchButton properties.
+
+goButtonTitle: Search address button text,  
+searchModalTitle: Title of map modal,  
+searchModalButtonOk: PropTypes.string,  
+searchModalButtonCancel: PropTypes.string,  
+location: Initial location coordinates,  
+onFinish: Callback function,  
+renderOkButton: Select address callback button,  
+renderCancelButton: Cancel address selection callback button,  
+renderSearchInput: Function for render TextInput for search addresses,  
+renderSearchButton: Function for render Search button for search address,  
+renderInput: Function for render selected address,  
+markerText: Marker label on map,  
+markerView: Marker view on map,  
+markerImage: Marker icon on map,  
+buttonContainerStyles: Style of container of callback buttons,  
+mapStyles: Style of map modal,  
+searchContainerStyles: Style of search input container  
